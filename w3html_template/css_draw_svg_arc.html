@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Draw SVG Arc</title>
+    <style>
+    .grid-container {
+    width: 35%;
+    display: grid;
+    grid-template-columns: auto auto;
+    background-color: #2196F3;
+    }
+    .grid-item {
+    background-color: rgba(255, 255, 255, 0.8);
+    /*border: 1px solid rgba(100, 100, 100, 0.8);*/
+    padding: 10px;
+    font-size: 16px;
+    text-align: left;
+    }
+    </style>
+    <script>
+    function describeArc(x, y, radius, spread, startAngle, endAngle){
+    var innerStart = polarToCartesian(x, y, radius, endAngle);
+  	var innerEnd = polarToCartesian(x, y, radius, startAngle);
+    var outerStart = polarToCartesian(x, y, radius + spread, endAngle);
+    var outerEnd = polarToCartesian(x, y, radius + spread, startAngle);
+
+    var largeArcFlag = endAngle - startAngle <= 180 ? "0" : "1";
+
+    var d = [
+        "M", outerStart.x, outerStart.y,
+        "A", radius + spread, radius + spread, 0, largeArcFlag, 0, outerEnd.x, outerEnd.y,
+        "L", innerEnd.x, innerEnd.y, 
+        "A", radius, radius, 0, largeArcFlag, 1, innerStart.x, innerStart.y, 
+        "L", outerStart.x, outerStart.y, "Z"
+    ].join(" ");
+
+    return d;
+    }
+
+    function polarToCartesian(centerX, centerY, radius, angleInDegrees) {
+    var angleInRadians = (angleInDegrees-90) * Math.PI / 180.0;
+
+    return {
+        x: centerX + (radius * Math.cos(angleInRadians)),
+        y: centerY + (radius * Math.sin(angleInRadians))
+    };
+    }
+    function Drawpath(){
+    let x = parseInt(document.getElementById("x").value);
+    let y = parseInt(document.getElementById("y").value);
+    let radius = parseInt(document.getElementById("radius").value);
+    let spread = parseInt(document.getElementById("spread").value);
+    let startangle = parseInt(document.getElementById("startangle").value);
+    let endangle = parseInt(document.getElementById("endangle").value);
+    console.log(x,y,radius,spread,startangle,endangle);
+
+    var path = describeArc(x, y, radius, spread, startangle, endangle);
+    document.getElementById("p").innerHTML = path
+    document.getElementById("path").setAttribute('d',path)
+    }
+    </script>
+</head>
+<body>
+<div class="grid-container">
+    <div class="grid-item">x</div><div class="grid-item"><input type="text" id="x" /></div>
+    <div class="grid-item">y</div><div class="grid-item"><input type="text" id="y" /></div>
+    <div class="grid-item">radius</div><div class="grid-item"><input type="text" id="radius" /></div>
+    <div class="grid-item">path width</div><div class="grid-item"><input type="text" id="spread" /></div>
+    <div class="grid-item">start angle</div><div class="grid-item"><input type="text" id="startangle" /></div>
+    <div class="grid-item">end angle</div><div class="grid-item"><input type="text" id="endangle" /></div>
+    <div class="grid-item"><input type="button" id="drawpath" value="Draw path" onclick="Drawpath()"/></div><div class="grid-item"></div>
+</div>
+
+<p id="p">
+</p>
+<svg width="400" height="400" style="border:1px gray solid">
+  <path id="path" fill="blue" stroke="cyan"></path>
+</svg>
+</body>
+</html>

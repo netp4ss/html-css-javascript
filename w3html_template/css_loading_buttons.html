@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+.buttonload {
+    background-color: #3498db; /* Green background */
+    border: none; /* Remove borders */
+    color: white; /* White text */
+    padding: 12px 24px; /* Some padding */
+    font-size: 16px; /* Set a font-size */
+    width: 230px;
+}
+
+/* Add a right margin to each icon */
+.fa {
+    margin-left: -12px;
+    margin-right: 8px;
+}
+
+.msgbox{
+	background-color: #3498db;
+    border: none;
+    color: white;
+    padding: 10px 10px;
+    font-size: 16px;
+    width: 50%;
+}
+
+.loader {
+  border: 3px solid #f3f3f3;
+  border-style: dotted;
+  border-radius: 50%;
+  /* border-top: 4px solid grey; */
+  width: 14px;
+  height: 14px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+
+.svg-loader{
+  width: 24px;
+  height: 24px;
+  background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 120 120' version='1.1' xmlns='http://www.w3.org/2000/svg'><circle cx='60' cy='60' r='50' fill='transparent'/><circle cx='60' cy='60' r='47' stroke='%23f3f3f3' stroke-width='21' stroke-dasharray='0 33' stroke-linecap='round' fill='transparent'/></svg>");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+  svg {
+    stroke: white;
+    stroke-width: 10;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    fill: none;
+  }
+</style>
+</head>
+<body>
+
+<h2>Loading Buttons</h2>
+<p>
+<button class="buttonload" id="button1">
+    <svg width="30" height="15">
+        <defs>
+          <symbol id="download" viewBox="0 0 64 71">
+              <!-- Download icon made with path -->
+              <path d="M 18 3 L 46 3 L 46 40 L 61 40 L 32 68 L 3 40 L 18 40 Z"></path>
+              </symbol>
+        </defs>
+        <use href="#download" x="0" y="0" width="40" height="15"></use>
+      </svg>
+ Icon Loading
+</button>
+
+<button class="buttonload">
+  <i class="fa fa-circle-o-notch fa-spin"></i>Icon Loading
+</button>
+
+<button class="buttonload">
+  <i class="fa fa-refresh fa-spin"></i>Icon Loading
+</button>
+</p>
+<p>
+<p>
+  <button class="buttonload" id="css-button">CSS Loading
+  </button>
+</p>
+<p>
+  <button class="buttonload" id="svg-button">SVG Loading
+  </button>
+</p>
+<button class="buttonload" onclick="startLoading();">
+  Start Loading
+</button>
+<button class="buttonload" onclick="stopLoading();">
+  Stop Loading
+</button>
+</p>
+<div>
+  <div id="mbox" class="msgbox"></div>
+</div>
+<script>
+function startLoading(){
+let button1 = document.getElementById("button1");
+let cssbutton = document.getElementById("css-button");
+let svgbutton = document.getElementById("svg-button");
+let msgdiv = document.getElementById("mbox");
+button1.innerHTML= 'Icon Loading<i class="fa fa-spinner fa-spin" style="margin:0 0 0 10px"></i>';
+cssbutton.innerHTML = 'CSS Loading<div class="loader" style="float: right; margin-left: 6px"></div>';
+svgbutton.innerHTML = 'SVG Loading<div class="svg-loader" style="float:right; margin-left: 6px"></div>';
+msgdiv.innerHTML = 'Loading...';
+}
+function stopLoading(){
+let button1 = document.getElementById("button1");
+let cssbutton = document.getElementById("css-button");
+let svgbutton = document.getElementById("svg-button");
+let msgdiv = document.getElementById("mbox");
+button1.innerHTML= 'Icon Loading';
+cssbutton.innerHTML = 'CSS Loading';
+svgbutton.innerHTML = 'SVG Loading';
+msgdiv.innerHTML = "Stop";
+}
+</script>
+</body>
+</html>
